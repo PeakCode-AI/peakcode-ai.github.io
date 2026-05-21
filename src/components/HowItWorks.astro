@@ -1,0 +1,45 @@
+---
+import { lightningIcon, layersIcon, codeIcon } from '../utils/icons';
+
+const steps = [
+  { num: "01", id: "how.step1", icon: lightningIcon, title: "Install PeakCode", desc: "Download for your platform. One-click install with zero configuration required." },
+  { num: "02", id: "how.step2", icon: layersIcon, title: "Connect Your Model", desc: "Choose from GPT, Claude, Gemini, or run entirely local with Ollama. Your keys, your control." },
+  { num: "03", id: "how.step3", icon: codeIcon, title: "Ship Faster", desc: "Write, refactor, and debug with AI that understands your entire codebase. No context switching." },
+];
+---
+
+<section class="how" id="how">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2 class="section-title" data-i18n="how.title">How it works</h2>
+      <p class="section-desc" data-i18n="how.desc">Get started in minutes. PeakCode is designed to be intuitive from the very first line of code.</p>
+    </div>
+
+    <div class="steps">
+      {steps.map((s, i) => (
+        <div class="step reveal" style={`transition-delay: ${i * 100}ms`}>
+          <div class="step-num">{s.num}</div>
+          <div class="step-icon"><span set:html={s.icon} /></div>
+          <h3 class="step-title" data-i18n={`${s.id}.title`}>{s.title}</h3>
+          <p class="step-desc" data-i18n={`${s.id}.desc`}>{s.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .how { padding: 100px 0; background: var(--bg-subtle); }
+  .section-header { text-align: center; max-width: 560px; margin: 0 auto 64px; }
+  .section-title { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; color: var(--fg); }
+  .section-desc { font-size: 1.05rem; color: var(--fg-muted); line-height: 1.7; }
+  .steps { display: grid; gap: 32px; }
+  @media (min-width: 768px) { .steps { grid-template-columns: repeat(3, 1fr); } }
+  .step { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 40px 32px; text-align: center; transition: box-shadow 0.3s, border-color 0.3s; }
+  .step:hover { box-shadow: var(--shadow-lg); border-color: #dbeafe; }
+  .step-num { font-size: 0.75rem; font-weight: 700; color: var(--accent); background: var(--accent-light); padding: 4px 10px; border-radius: 100px; display: inline-block; margin-bottom: 20px; }
+  .step-icon { width: 48px; height: 48px; border-radius: var(--radius); background: var(--accent-light); color: var(--accent); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+  .step-icon span { display: flex; }
+  .step-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; color: var(--fg); }
+  .step-desc { font-size: 0.9rem; color: var(--fg-muted); line-height: 1.7; }
+</style>

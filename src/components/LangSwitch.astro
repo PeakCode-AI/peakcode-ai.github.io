@@ -1,0 +1,38 @@
+---
+---
+
+<div class="lang-switch" id="langSwitch">
+  <button class="lang-btn" data-lang="en" id="btnEn">EN</button>
+  <span class="lang-divider">/</span>
+  <button class="lang-btn" data-lang="zh" id="btnZh">中</button>
+</div>
+
+<style>
+  .lang-switch {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  .lang-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 6px;
+    color: var(--fg-subtle);
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+  }
+  .lang-btn:hover {
+    color: var(--fg);
+  }
+  .lang-btn.active {
+    color: var(--accent);
+  }
+  .lang-divider {
+    color: var(--fg-subtle);
+    font-weight: 400;
+  }
+</style>

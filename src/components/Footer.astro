@@ -1,0 +1,99 @@
+---
+const links = [
+  {
+    title: "Product",
+    id: "footer.col1",
+    items: [
+      { label: "Features", id: "footer.col1.f1", href: "#features" },
+      { label: "Download", id: "footer.col1.f2", href: "#download" },
+      { label: "Star on GitHub", id: "footer.col1.f3", href: "#" },
+      { label: "Changelog", id: "footer.col1.f4", href: "#" },
+    ],
+  },
+  {
+    title: "Developers",
+    id: "footer.col2",
+    items: [
+      { label: "Documentation", id: "footer.col2.f1", href: "#" },
+      { label: "API Reference", id: "footer.col2.f2", href: "#" },
+      { label: "Extensions", id: "footer.col2.f3", href: "#" },
+      { label: "Contribute", id: "footer.col2.f4", href: "#" },
+    ],
+  },
+  {
+    title: "Community",
+    id: "footer.col3",
+    items: [
+      { label: "GitHub", id: "footer.col3.f1", href: "#" },
+      { label: "Discord", id: "footer.col3.f2", href: "#" },
+      { label: "Twitter / X", id: "footer.col3.f3", href: "#" },
+      { label: "Forum", id: "footer.col3.f4", href: "#" },
+    ],
+  },
+  {
+    title: "Company",
+    id: "footer.col4",
+    items: [
+      { label: "About", id: "footer.col4.f1", href: "#" },
+      { label: "Blog", id: "footer.col4.f2", href: "#" },
+      { label: "Careers", id: "footer.col4.f3", href: "#" },
+      { label: "Contact", id: "footer.col4.f4", href: "#" },
+    ],
+  },
+];
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="/" class="brand">
+          <img src="/logo.png" alt="PeakCode" class="brand-icon" />
+          <span class="brand-text">PeakCode</span>
+        </a>
+        <p class="brand-desc" data-i18n="footer.brand">An open-source, AI-native code editor built for developers who demand more.</p>
+      </div>
+      <div class="footer-links">
+        {links.map(g => (
+          <div class="link-group">
+            <h4 data-i18n={`${g.id}.title`}>{g.title}</h4>
+            <ul>
+              {g.items.map(i => (
+                <li><a href={i.href} data-i18n={i.id}>{i.label}</a></li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p data-i18n="footer.bottom">PeakCode is open source under the MIT License.</p>
+      <div class="footer-legal">
+        <a href="#" data-i18n="footer.privacy">Privacy</a>
+        <a href="#" data-i18n="footer.terms">Terms</a>
+        <a href="#" data-i18n="footer.security">Security</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer { padding: 80px 0 40px; background: var(--bg); border-top: 1px solid var(--border-light); }
+  .footer-top { display: grid; gap: 48px; margin-bottom: 64px; }
+  @media (min-width: 768px) { .footer-top { grid-template-columns: 280px 1fr; gap: 80px; } }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.15rem; color: var(--fg); margin-bottom: 16px; }
+  .brand-icon { display: block; width: 110px; height: auto; }
+  .brand-text { letter-spacing: -0.02em; }
+  .brand-desc { font-size: 0.9rem; color: var(--fg-muted); line-height: 1.7; max-width: 280px; }
+  .footer-links { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
+  @media (min-width: 640px) { .footer-links { grid-template-columns: repeat(4, 1fr); } }
+  .link-group h4 { font-size: 0.8rem; font-weight: 700; color: var(--fg); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+  .link-group ul { display: flex; flex-direction: column; gap: 10px; }
+  .link-group a { font-size: 0.9rem; color: var(--fg-muted); transition: color 0.2s; }
+  .link-group a:hover { color: var(--accent); }
+  .footer-bottom { display: flex; flex-direction: column; gap: 16px; padding-top: 32px; border-top: 1px solid var(--border-light); font-size: 0.8rem; color: var(--fg-subtle); }
+  @media (min-width: 640px) { .footer-bottom { flex-direction: row; justify-content: space-between; align-items: center; } }
+  .footer-legal { display: flex; gap: 24px; }
+  .footer-legal a { color: var(--fg-subtle); transition: color 0.2s; }
+  .footer-legal a:hover { color: var(--fg-muted); }
+</style>

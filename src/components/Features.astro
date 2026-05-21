@@ -1,0 +1,47 @@
+---
+import { lightningIcon, layersIcon, codeIcon, terminalIcon, usersIcon, shieldIcon } from '../utils/icons';
+
+const features = [
+  { id: "features.f1", icon: lightningIcon, title: "Lightning Autocomplete", desc: "Context-aware suggestions across your entire codebase. Predicts what you need before you type it." },
+  { id: "features.f2", icon: layersIcon, title: "Multi-Model AI", desc: "Bring your own API keys. Switch between GPT-5, Claude 4, Gemini 2, or run local models via Ollama." },
+  { id: "features.f3", icon: codeIcon, title: "Smart Refactoring", desc: "Describe changes in plain English. PeakCode refactors, tests, and validates — all in one flow." },
+  { id: "features.f4", icon: terminalIcon, title: "Built-in Terminal", desc: "Integrated terminal with AI assistance. Debug, run commands, and automate without leaving the editor." },
+  { id: "features.f5", icon: usersIcon, title: "Collaborative Editing", desc: "Real-time pair programming support. Work together with teammates or AI agents side by side." },
+  { id: "features.f6", icon: shieldIcon, title: "Privacy First", desc: "Open source and self-hostable. Your code never leaves your machine unless you choose otherwise." },
+];
+---
+
+<section class="features">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2 class="section-title" data-i18n="features.title">Everything you need to ship faster</h2>
+      <p class="section-desc" data-i18n="features.desc">PeakCode combines the best of modern editing with AI superpowers. Every feature is designed to keep you in flow.</p>
+    </div>
+
+    <div class="grid">
+      {features.map((f, i) => (
+        <div class="card reveal" style={`transition-delay: ${i * 60}ms`}>
+          <div class="card-icon"><span set:html={f.icon} /></div>
+          <h3 class="card-title" data-i18n={`${f.id}.title`}>{f.title}</h3>
+          <p class="card-desc" data-i18n={`${f.id}.desc`}>{f.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .features { padding: 100px 0; background: var(--bg); }
+  .section-header { text-align: center; max-width: 560px; margin: 0 auto 64px; }
+  .section-title { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; color: var(--fg); }
+  .section-desc { font-size: 1.05rem; color: var(--fg-muted); line-height: 1.7; }
+  .grid { display: grid; gap: 24px; }
+  @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+  .card { padding: 32px; background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-lg); transition: box-shadow 0.3s, border-color 0.3s, transform 0.3s; }
+  .card:hover { box-shadow: var(--shadow); border-color: #dbeafe; transform: translateY(-2px); }
+  .card-icon { width: 40px; height: 40px; border-radius: var(--radius-sm); background: var(--accent-light); color: var(--accent); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+  .card-icon span { display: flex; }
+  .card-title { font-size: 1rem; font-weight: 700; margin-bottom: 8px; color: var(--fg); }
+  .card-desc { font-size: 0.9rem; color: var(--fg-muted); line-height: 1.7; }
+</style>

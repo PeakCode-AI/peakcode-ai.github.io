@@ -1,0 +1,55 @@
+---
+const logos = [
+  { name: "Vercel", text: "VERCEL" },
+  { name: "GitHub", text: "GitHub" },
+  { name: "Stripe", text: "stripe" },
+  { name: "Linear", text: "Linear" },
+  { name: "Notion", text: "Notion" },
+  { name: "Figma", text: "FIGMA" },
+];
+---
+
+<section class="trusted">
+  <div class="container">
+    <p class="trusted-label" data-i18n="trusted.label">Trusted by developers at</p>
+    <div class="logos">
+      {logos.map(l => (
+        <div class="logo">{l.text}</div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .trusted {
+    padding: 40px 0;
+    border-top: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+    background: var(--bg);
+  }
+  .trusted-label {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--fg-subtle);
+    margin-bottom: 24px;
+    font-weight: 500;
+  }
+  .logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+  .logo {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--fg-subtle);
+    letter-spacing: 0.02em;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+  .logo:hover {
+    opacity: 1;
+  }
+</style>

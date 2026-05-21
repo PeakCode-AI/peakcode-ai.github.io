@@ -1,0 +1,33 @@
+---
+import { sparklesIcon } from '../utils/icons';
+---
+
+<section class="cta">
+  <div class="container">
+    <div class="cta-card reveal">
+      <div class="cta-icon"><span set:html={sparklesIcon} /></div>
+      <h2 class="cta-title" data-i18n="cta.title">Ready to code smarter?</h2>
+      <p class="cta-desc" data-i18n="cta.desc">
+        Download PeakCode today and join thousands of developers building the future. Free. Open source. Forever.
+      </p>
+      <div class="cta-btns">
+        <a href="#download" class="cta-btn" data-i18n="cta.btn1">Download for Free</a>
+        <a href="https://github.com/peakcode/peakcode" target="_blank" class="cta-btn-outline" data-i18n="cta.btn2">Star on GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta { padding: 80px 0 100px; background: var(--bg-subtle); }
+  .cta-card { text-align: center; max-width: 600px; margin: 0 auto; padding: 64px 40px; background: var(--card-bg); border-radius: var(--radius-lg); border: 1px solid var(--border); }
+  .cta-icon { width: 56px; height: 56px; border-radius: var(--radius); background: var(--accent-light); color: var(--accent); display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
+  .cta-icon span { display: flex; }
+  .cta-title { font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; color: var(--fg); }
+  .cta-desc { font-size: 1.05rem; color: var(--fg-muted); line-height: 1.7; margin-bottom: 32px; }
+  .cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .cta-btn { padding: 14px 28px; background: var(--fg); color: #fff; font-weight: 600; font-size: 0.95rem; border-radius: var(--radius-sm); transition: background 0.2s, box-shadow 0.2s; }
+  .cta-btn:hover { background: #1f2937; box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+  .cta-btn-outline { padding: 14px 28px; background: #fff; color: var(--fg); font-weight: 600; font-size: 0.95rem; border-radius: var(--radius-sm); border: 1px solid var(--border); transition: border-color 0.2s, background 0.2s; }
+  .cta-btn-outline:hover { border-color: var(--fg-subtle); background: var(--bg-subtle); }
+</style>

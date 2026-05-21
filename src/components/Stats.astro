@@ -1,0 +1,35 @@
+---
+import { starIcon, downloadCircleIcon, usersIcon2, gitBranchIcon } from '../utils/icons';
+
+const stats = [
+  { icon: starIcon, value: "50k+", label: "GitHub Stars", id: "stats.stars" },
+  { icon: downloadCircleIcon, value: "2M+", label: "Downloads", id: "stats.downloads" },
+  { icon: usersIcon2, value: "10k+", label: "Contributors", id: "stats.contributors" },
+  { icon: gitBranchIcon, value: "MIT", label: "Open Source", id: "stats.license" },
+];
+---
+
+<section class="stats">
+  <div class="container">
+    <div class="grid">
+      {stats.map(s => (
+        <div class="stat reveal">
+          <div class="stat-icon"><span set:html={s.icon} /></div>
+          <div class="stat-value">{s.value}</div>
+          <div class="stat-label" data-i18n={s.id}>{s.label}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .stats { padding: 64px 0; background: var(--bg); border-top: 1px solid var(--border-light); }
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
+  @media (min-width: 640px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+  .stat { text-align: center; }
+  .stat-icon { width: 40px; height: 40px; border-radius: var(--radius-sm); background: var(--accent-light); color: var(--accent); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; }
+  .stat-icon span { display: flex; }
+  .stat-value { font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; color: var(--fg); margin-bottom: 4px; }
+  .stat-label { font-size: 0.85rem; color: var(--fg-subtle); font-weight: 500; }
+</style>

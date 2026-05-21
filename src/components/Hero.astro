@@ -1,0 +1,115 @@
+---
+import { downloadSvg, arrowSvg, fileSvg, searchSvg, gitSvg } from '../utils/icons';
+
+const codeLines = [
+  { num: 1, html: `<span class="kw">import</span> <span class="fn">{ PeakCode }</span> <span class="kw">from</span> <span class="str">'@peakcode/sdk'</span>` },
+  { num: 2, html: `` },
+  { num: 3, html: `<span class="kw">const</span> <span class="fn">editor</span> = <span class="kw">new</span> <span class="cls">PeakCode</span>(<span class="bracket">&#123;</span>` },
+  { num: 4, html: `&nbsp;&nbsp;<span class="prop">ai</span>: <span class="str">'gpt-5'</span>,` },
+  { num: 5, html: `&nbsp;&nbsp;<span class="prop">theme</span>: <span class="str">'peak-dark'</span>,` },
+  { num: 6, html: `&nbsp;&nbsp;<span class="prop">autopilot</span>: <span class="bool">true</span>,` },
+  { num: 7, html: `<span class="bracket">&#125;</span>)` },
+  { num: 8, html: `` },
+  { num: 9, html: `<span class="fn">editor</span>.<span class="fn">on</span>(<span class="str">'complete'</span>, <span class="kw">async</span> (<span class="cls">ctx</span>) <span class="kw">=&gt;</span> <span class="bracket">&#123;</span>` },
+  { num: 10, html: `&nbsp;&nbsp;<span class="kw">await</span> <span class="cls">ctx</span>.<span class="fn">refactor</span>() <span class="cm">// AI does the rest</span>` },
+  { num: 11, html: `<span class="bracket">&#125;</span>)` },
+];
+---
+
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <div class="badge-row">
+        <span class="badge">
+          <span class="badge-dot"></span>
+          <span data-i18n="hero.badge">Open Source & Free Forever</span>
+        </span>
+        <a href="https://github.com/peakcode/peakcode" class="stars-link" target="_blank" data-i18n="hero.stars">★ 50k+ stars on GitHub</a>
+      </div>
+      <h1 class="hero-title">
+        <span data-i18n="hero.title.line1">The code editor</span><br />
+        <span class="accent" data-i18n="hero.title.line2">reimagined with AI</span>
+      </h1>
+      <p class="hero-desc" data-i18n="hero.desc">
+        PeakCode is an open-source, AI-native code editor. Multi-model support, intelligent autocomplete, and privacy-first design — built for developers who demand more.
+      </p>
+      <div class="hero-btns">
+        <a href="#download" class="btn-main">
+          <span set:html={downloadSvg} />
+          <span data-i18n="hero.btn1">Download for Free</span>
+        </a>
+        <a href="#features" class="btn-secondary">
+          <span data-i18n="hero.btn2">View all features</span>
+          <span set:html={arrowSvg} />
+        </a>
+      </div>
+      <p class="hero-footnote" data-i18n="hero.footnote">
+        MIT Licensed · Cross-platform · <a href="#">Join the community</a>
+      </p>
+    </div>
+
+    <div class="hero-visual">
+      <div class="editor-window">
+        <div class="editor-header">
+          <div class="editor-dots"><span></span><span></span><span></span></div>
+          <div class="editor-title">demo.ts</div>
+        </div>
+        <div class="editor-body">
+          <div class="editor-sidebar">
+            <div class="sidebar-icon active"><span set:html={fileSvg} /></div>
+            <div class="sidebar-icon"><span set:html={searchSvg} /></div>
+            <div class="sidebar-icon"><span set:html={gitSvg} /></div>
+          </div>
+          <div class="editor-content">
+            {codeLines.map(line => (
+              <div class="code-line">
+                <span class="line-num">{line.num}</span>
+                <span class="line-code" set:html={line.html} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero { padding: 88px 0 100px; background: var(--bg); }
+  .hero-inner { display: grid; gap: 64px; align-items: center; }
+  @media (min-width: 1024px) { .hero-inner { grid-template-columns: 1fr 1.05fr; gap: 80px; } }
+  .badge-row { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; flex-wrap: wrap; }
+  .badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 100px; font-size: 0.8rem; font-weight: 500; color: #15803d; }
+  .badge-dot { width: 6px; height: 6px; background: #22c55e; border-radius: 50%; }
+  .stars-link { font-size: 0.8rem; font-weight: 500; color: var(--fg-muted); transition: color 0.2s; }
+  .stars-link:hover { color: var(--fg); }
+  .hero-title { font-size: clamp(2.4rem, 5.5vw, 4rem); font-weight: 800; line-height: 1.08; letter-spacing: -0.03em; color: var(--fg); margin-bottom: 20px; }
+  .hero-title .accent { color: var(--accent); }
+  .hero-desc { font-size: 1.1rem; color: var(--fg-muted); max-width: 520px; margin-bottom: 32px; line-height: 1.7; }
+  .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+  .btn-main { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: var(--fg); color: #fff; font-weight: 600; font-size: 0.95rem; border-radius: var(--radius-sm); transition: background 0.2s, box-shadow 0.2s; }
+  .btn-main:hover { background: #1f2937; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+  .btn-main :global(span:first-child) { display: flex; }
+  .btn-secondary { display: inline-flex; align-items: center; gap: 6px; padding: 12px 24px; background: #fff; color: var(--fg); font-weight: 600; font-size: 0.95rem; border-radius: var(--radius-sm); border: 1px solid var(--border); transition: border-color 0.2s, background 0.2s; }
+  .btn-secondary:hover { border-color: var(--fg-subtle); background: var(--bg-subtle); }
+  .btn-secondary :global(span:last-child) { display: flex; }
+  .hero-footnote { font-size: 0.85rem; color: var(--fg-subtle); }
+  .hero-footnote a { color: var(--accent); font-weight: 500; }
+
+  .hero-visual { display: flex; justify-content: center; }
+  .editor-window { width: 100%; max-width: 560px; background: #0f172a; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); overflow: hidden; border: 1px solid #1e293b; }
+  .editor-header { display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: #1e293b; border-bottom: 1px solid #334155; }
+  .editor-dots { display: flex; gap: 6px; }
+  .editor-dots span { width: 10px; height: 10px; border-radius: 50%; }
+  .editor-dots span:nth-child(1) { background: #ef4444; } .editor-dots span:nth-child(2) { background: #f59e0b; } .editor-dots span:nth-child(3) { background: #22c55e; }
+  .editor-title { font-size: 0.75rem; color: #94a3b8; }
+  .editor-body { display: flex; min-height: 320px; }
+  .editor-sidebar { width: 44px; background: #1e293b; border-right: 1px solid #334155; display: flex; flex-direction: column; align-items: center; padding-top: 12px; gap: 4px; }
+  .sidebar-icon { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 6px; color: #64748b; cursor: pointer; }
+  .sidebar-icon.active { color: #e2e8f0; background: #334155; }
+  .editor-content { flex: 1; padding: 16px 20px; font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace; font-size: 0.78rem; line-height: 1.85; }
+  .code-line { display: flex; gap: 16px; }
+  .line-num { color: #475569; user-select: none; min-width: 20px; text-align: right; }
+  .line-code { color: #e2e8f0; }
+  .kw { color: #c084fc; } .fn { color: #60a5fa; } .str { color: #86efac; } .cls { color: #fbbf24; } .prop { color: #67e8f9; } .bool { color: #f472b6; } .cm { color: #64748b; } .bracket { color: #94a3b8; }
+</style>

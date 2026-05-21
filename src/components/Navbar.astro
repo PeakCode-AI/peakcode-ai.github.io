@@ -1,0 +1,71 @@
+---
+import LangSwitch from './LangSwitch.astro';
+import { gitHubIcon } from '../utils/icons';
+
+const links = [
+  { id: "nav.features", label: "Features", href: "#features" },
+  { id: "nav.docs", label: "Docs", href: "#docs" },
+  { id: "nav.download", label: "Download", href: "#download" },
+];
+---
+
+<header class="navbar">
+  <div class="container nav-inner">
+    <a href="/" class="brand">
+      <img src="/logo.png" alt="PeakCode" class="brand-icon" />
+      <span class="brand-text">PeakCode</span>
+    </a>
+
+    <nav class="nav-links">
+      {links.map(l => (
+        <a href={l.href} class="nav-link" data-i18n={l.id}>{l.label}</a>
+      ))}
+    </nav>
+
+    <div class="nav-cta">
+      <a href="https://github.com/peakcode/peakcode" target="_blank" class="btn-ghost">
+        <span set:html={gitHubIcon} />
+        <span data-i18n="nav.github">GitHub</span>
+      </a>
+      <a href="#download" class="btn-primary" data-i18n="nav.downloadBtn">Download</a>
+      <LangSwitch />
+    </div>
+
+    <button class="menu-btn" aria-label="Open menu" id="menuBtn">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<style>
+  .navbar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.88); backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border-light);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.15rem; color: var(--fg); }
+  .brand-icon { display: block; width: 140px; height: auto; }
+  .brand-text { letter-spacing: -0.02em; white-space: nowrap; }
+  .nav-links { display: none; gap: 36px; }
+  .nav-link { font-size: 0.9rem; font-weight: 500; color: var(--fg-muted); transition: color 0.2s; white-space: nowrap; }
+  .nav-link:hover { color: var(--fg); }
+  .nav-cta { display: none; align-items: center; gap: 12px; }
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.85rem; font-weight: 600; color: var(--fg-muted);
+    padding: 8px 14px; border-radius: var(--radius-sm); white-space: nowrap;
+    transition: color 0.2s, background 0.2s;
+  }
+  .btn-ghost:hover { color: var(--fg); background: var(--bg-subtle); }
+  .btn-ghost :global(span:first-child) { display: flex; }
+  .btn-primary {
+    font-size: 0.85rem; font-weight: 600; color: #fff; background: var(--fg);
+    padding: 8px 18px; border-radius: var(--radius-sm); white-space: nowrap;
+    transition: background 0.2s, box-shadow 0.2s;
+  }
+  .btn-primary:hover { background: #1f2937; box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+  .menu-btn { display: flex; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+  .menu-btn span { display: block; width: 22px; height: 2px; background: var(--fg); border-radius: 2px; }
+  @media (min-width: 768px) { .nav-links, .nav-cta { display: flex; } .menu-btn { display: none; } }
+</style>
