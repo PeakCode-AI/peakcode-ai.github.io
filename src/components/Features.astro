@@ -1,13 +1,13 @@
 ---
-import { lightningIcon, layersIcon, codeIcon, terminalIcon, usersIcon, shieldIcon } from '../utils/icons';
+import { layersIcon, monitorIcon, gitBranchIcon, refreshIcon, terminalIcon, globeIcon } from '../utils/icons';
 
 const features = [
-  { id: "features.f1", icon: lightningIcon, title: "Lightning Autocomplete", desc: "Context-aware suggestions across your entire codebase. Predicts what you need before you type it." },
-  { id: "features.f2", icon: layersIcon, title: "Multi-Model AI", desc: "Bring your own API keys. Switch between GPT-5, Claude 4, Gemini 2, or run local models via Ollama." },
-  { id: "features.f3", icon: codeIcon, title: "Smart Refactoring", desc: "Describe changes in plain English. PeakCode refactors, tests, and validates — all in one flow." },
-  { id: "features.f4", icon: terminalIcon, title: "Built-in Terminal", desc: "Integrated terminal with AI assistance. Debug, run commands, and automate without leaving the editor." },
-  { id: "features.f5", icon: usersIcon, title: "Collaborative Editing", desc: "Real-time pair programming support. Work together with teammates or AI agents side by side." },
-  { id: "features.f6", icon: shieldIcon, title: "Privacy First", desc: "Open source and self-hostable. Your code never leaves your machine unless you choose otherwise." },
+  { id: "features.f1", icon: layersIcon, title: "Multi-Agent, One Interface", desc: "Seamlessly switch between Claude Code, Codex, Gemini, Kilo Code, OpenCode, and more — all from a single unified window." },
+  { id: "features.f2", icon: monitorIcon, title: "Real-Time Streaming", desc: "Watch AI agents work in real-time. See code being written, tools being invoked, and results appearing instantly. No polling, no refreshing." },
+  { id: "features.f3", icon: gitBranchIcon, title: "Git Integration", desc: "Built-in version control with branch management, staging, committing, and pushing — all from the same interface where you interact with AI." },
+  { id: "features.f4", icon: refreshIcon, title: "Session Persistence", desc: "Sessions survive restarts. Smart checkpointing captures conversation state so you can pick up exactly where you left off." },
+  { id: "features.f5", icon: terminalIcon, title: "Integrated Terminal & Editor", desc: "Embedded terminal for command execution and a full code editor with syntax highlighting — everything you need without leaving the window." },
+  { id: "features.f6", icon: globeIcon, title: "Cross-Platform", desc: "Available as a native desktop app (macOS, Windows, Linux) and a web application you can self-host. Your code stays local, always." },
 ];
 ---
 
@@ -15,7 +15,7 @@ const features = [
   <div class="container">
     <div class="section-header reveal">
       <h2 class="section-title" data-i18n="features.title">Everything you need to ship faster</h2>
-      <p class="section-desc" data-i18n="features.desc">PeakCode combines the best of modern editing with AI superpowers. Every feature is designed to keep you in flow.</p>
+      <p class="section-desc" data-i18n="features.desc">Peak Code combines multiple AI coding agents into one polished, local-first experience. No more juggling terminals.</p>
     </div>
 
     <div class="grid">

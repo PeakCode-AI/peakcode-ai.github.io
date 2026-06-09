@@ -1,32 +1,63 @@
 ---
 import { dlIcon } from '../utils/icons';
 
+const GITHUB_OWNER = 'PeakCode-AI';
+const GITHUB_REPO = 'PeakCode';
+const GITHUB_RELEASES = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/releases`;
+
+let releaseTag = 'v0.0.1';
+let releaseUrl = `${GITHUB_RELEASES}/tag/v0.0.1`;
+const assetUrlMap: Record<string, string> = {};
+
+try {
+  const res = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/releases/latest`);
+  if (res.ok) {
+    const data = await res.json();
+    releaseTag = data.tag_name;
+    releaseUrl = data.html_url;
+    for (const asset of data.assets) {
+      const name = asset.name;
+      if (!name.includes('.blockmap') && !name.endsWith('.yml')) {
+        assetUrlMap[name] = asset.browser_download_url;
+      }
+    }
+  }
+} catch (_) {}
+
+const ver = releaseTag.replace(/^v/, '');
+
+function assetUrl(archExt: string): string | undefined {
+  return assetUrlMap[`Peak-Code-${ver}-${archExt}`];
+}
+
+const macIcon = `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47c-1.34.03-1.77-.79-3.29-.79c-1.53 0-2 .77-3.27.82c-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51c1.28-.02 2.5.87 3.29.87c.78 0 2.26-1.07 3.8-.91c.65.03 2.47.26 3.64 1.98c-.09.06-2.17 1.28-2.15 3.81c.03 3.02 2.65 4.03 2.68 4.04c-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5c.13 1.17-.34 2.35-1.04 3.19c-.69.85-1.83 1.51-2.95 1.42c-.15-1.15.41-2.35 1.05-3.11z"/></svg>`;
+const winIcon = `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>`;
+const linuxIcon = `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>`;
+
 const platforms = [
   {
     name: "macOS",
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>`,
+    icon: macIcon,
     versions: [
-      { label: "Apple Silicon (M1/M2/M3/M4)", id: "download.macos.v1", file: "PeakCode-darwin-arm64.dmg" },
-      { label: "Intel Chip", id: "download.macos.v2", file: "PeakCode-darwin-x64.dmg" },
+      { label: "Apple Silicon (M1/M2/M3/M4)", id: "download.macos.v1", arch: "arm64.dmg" },
+      { label: "Intel Chip", id: "download.macos.v2", arch: "x64.dmg" },
     ],
     badge: "Recommended",
   },
   {
     name: "Windows",
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>`,
+    icon: winIcon,
     versions: [
-      { label: "Installer (.exe)", id: "download.windows.v1", file: "PeakCode-win32-x64.exe" },
-      { label: "Portable (.zip)", id: "download.windows.v2", file: "PeakCode-win32-x64.zip" },
+      { label: "Installer (.exe)", id: "download.windows.v1", arch: "x64.exe" },
+      { label: "Portable (.zip)", id: "download.windows.v2", arch: "x64.zip" },
     ],
     badge: null,
   },
   {
     name: "Linux",
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.504 0c-.155 0-.315.008-.48.021-4.226.333-3.105 4.807-3.17 6.298-.076 1.092-.3 1.953-1.05 3.02-.885 1.051-2.127 2.75-2.716 4.521-.278.832-.41 1.684-.287 2.489a.424.424 0 00-.11.135c-.26.268-.45.6-.663.839-.199.199-.485.267-.797.4-.313.136-.658.269-.864.68-.09.189-.136.394-.132.602 0 .199.027.4.055.536.058.399.116.728.04.97-.249.68-.28 1.145-.106 1.484.174.334.535.47.94.601.81.2 1.91.135 2.774.6.926.466 1.866.67 2.616.47.526-.116.97-.464 1.208-.946.587-.003 1.23-.269 2.26-.334.699-.058 1.574.267 2.577.2.025.134.063.198.114.333l.003.003c.391.778 1.113 1.132 1.884 1.071.771-.06 1.592-.536 2.257-1.306.631-.765 1.683-1.084 2.378-1.503.348-.199.629-.469.649-.853.023-.4-.2-.811-.714-1.376v-.097l-.003-.003c-.17-.2-.25-.535-.338-.926-.085-.401-.182-.786-.492-1.046h-.003c-.059-.054-.123-.067-.188-.135a.357.357 0 00-.19-.064c.431-1.278.264-2.55-.173-3.694-.533-1.41-1.465-2.638-2.175-3.483-.796-1.005-1.576-1.957-1.56-3.368.026-2.152.236-6.133-3.544-6.139zm.529 3.405h.013c.213 0 .396.062.584.198.19.135.33.332.438.533.105.259.158.459.166.724 0-.02.006-.04.006-.06v.105a.086.086 0 01-.004-.021l-.004-.024a1.807 1.807 0 01-.15.706.953.953 0 01-.213.335.71.71 0 00-.088-.042c-.104-.045-.198-.064-.284-.133a1.312 1.312 0 00-.22-.066c.05-.06.146-.133.183-.198.053-.128.082-.264.088-.402v-.02a1.21 1.21 0 00-.061-.4c-.045-.134-.101-.2-.183-.333-.084-.066-.167-.132-.267-.132h-.016c-.093 0-.176.03-.262.132a.8.8 0 00-.205.334 1.18 1.18 0 00-.09.41v.019c.002.089.008.179.074.402.039.095.132.179.177.198a1.758 1.758 0 00-.223.065c-.086.065-.18.088-.282.133a.866.866 0 00-.088.043.746.746 0 01-.213-.336 1.778 1.778 0 01-.15-.707v-.023l-.004.024a.09.09 0 01-.004.021v-.104c0-.02.006-.04.006-.06.008-.265.06-.465.166-.724.109-.201.249-.398.438-.533.188-.136.371-.198.584-.198zm-2.99.386c.18 0 .36.061.533.199.17.135.31.332.414.533.105.259.153.459.161.724 0-.02.006-.04.006-.06v.129c-.002.02-.006.04-.006.06-.008.265-.056.465-.161.724-.104.201-.244.398-.414.533-.173.136-.353.199-.533.199-.18 0-.36-.063-.53-.199a.986.986 0 01-.417-.533 1.778 1.778 0 01-.16-.724v-.129c0-.02.006-.04.006-.06.008-.265.056-.465.16-.724.106-.201.246-.398.417-.533.17-.138.35-.199.53-.199zm5.98 0c.18 0 .36.061.53.199.171.135.311.332.417.533.105.259.153.459.16.724 0-.02.006-.04.006-.06v.129c-.002.02-.006.04-.006.06-.007.265-.055.465-.16.724-.106.201-.246.398-.417.533-.17.136-.35.199-.53.199-.18 0-.36-.063-.533-.199a.986.986 0 01-.414-.533 1.778 1.778 0 01-.161-.724v-.129c0-.02.006-.04.006-.06.008-.265.056-.465.161-.724.104-.201.244-.398.414-.533.173-.138.353-.199.533-.199zm-2.945 3.558c.214.005.432.086.61.24.242.204.39.51.39.84 0 .33-.148.636-.39.84a1.1 1.1 0 01-.61.24 1.1 1.1 0 01-.608-.24 1.076 1.076 0 01-.391-.84c0-.33.149-.636.391-.84a1.1 1.1 0 01.608-.24z"/></svg>`,
+    icon: linuxIcon,
     versions: [
-      { label: "Debian / Ubuntu (.deb)", id: "download.linux.v1", file: "PeakCode-linux-amd64.deb" },
-      { label: "Fedora / RHEL (.rpm)", id: "download.linux.v2", file: "PeakCode-linux-x86_64.rpm" },
-      { label: "AppImage (Universal)", id: "download.linux.v3", file: "PeakCode-linux-x86_64.AppImage" },
+      { label: "AppImage (Universal)", id: "download.linux.v1", arch: "x86_64.AppImage" },
     ],
     badge: null,
   },
@@ -51,12 +82,15 @@ const platforms = [
             </div>
           </div>
           <div class="versions">
-            {p.versions.map(v => (
-              <a href={`/download/${v.file}`} class="version-link">
-                <span set:html={dlIcon} />
-                <span data-i18n={v.id}>{v.label}</span>
-              </a>
-            ))}
+            {p.versions.map(v => {
+              const url = assetUrl(v.arch);
+              return (
+                <a href={url || '#'} class={`version-link${url ? '' : ' disabled'}`} target={url ? '_blank' : ''} rel={url ? 'noopener noreferrer' : ''}>
+                  <span set:html={dlIcon} />
+                  <span data-i18n={v.id}>{v.label}</span>
+                </a>
+              );
+            })}
           </div>
         </div>
       ))}
@@ -64,7 +98,7 @@ const platforms = [
 
     <div class="download-footer reveal">
       <p data-i18n="download.footer" data-i18n-html>Prefer the command line? <code>brew install peakcode</code> or <code>winget install PeakCode</code></p>
-      <p class="sub" data-i18n="download.footer2">Latest release: v2.4.1 · View changelog · All releases</p>
+      <p class="sub">Latest release: <strong>{releaseTag}</strong> · <a href={releaseUrl} target="_blank" rel="noopener noreferrer">View changelog</a> · <a href={GITHUB_RELEASES} target="_blank" rel="noopener noreferrer">All releases</a></p>
     </div>
   </div>
 </section>
@@ -87,6 +121,8 @@ const platforms = [
   .version-link { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 500; color: var(--fg-muted); border: 1px solid var(--border); transition: border-color 0.2s, background 0.2s, color 0.2s; }
   .version-link:hover { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
   .version-link :global(span:first-child) { display: flex; flex-shrink: 0; }
+  .version-link.disabled { opacity: 0.4; cursor: not-allowed; }
+  .version-link.disabled:hover { border-color: var(--border); background: transparent; color: var(--fg-muted); }
   .download-footer { text-align: center; margin-top: 48px; }
   .download-footer p { font-size: 0.9rem; color: var(--fg-muted); }
   .download-footer code { background: var(--bg-subtle); padding: 2px 8px; border-radius: 4px; font-size: 0.85rem; color: var(--fg); border: 1px solid var(--border); }
